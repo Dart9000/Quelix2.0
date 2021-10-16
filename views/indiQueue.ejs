@@ -1,0 +1,36 @@
+<%- include("header") -%>
+
+    <section class="sec1">
+      <h2><%= queue.title%></h2>
+      <p>Nunmber of persons in the queue currently: <span id="remInQue"><%= queue.joinedUsersID.length%></span></p>
+      <% if(!isAdmin){%>
+        <p>Your position in the queue: <span id="userPos"><%= userPos%></span></p>
+      <%}else{%>
+        <p>Queue Code: <%= queue._id%></p>
+        <p>Next Turn: <span id="nexTurn"><%= nexTurn%></span></p>
+      <%}%>
+      <p>Max number of person who can join: <%= queue.maxLimit%></p>
+
+
+      <% if(isAdmin){%>
+        <img src="<%= qrUrl%>" alt="">
+        <form class="" action="/queue/delete" method="post">
+          <button class="subBtn" type="submit" name="queueCode" value="<%= queue._id%>">Delete Queue</button>
+        </form>
+      <%}else{%>
+        <p>Queue Created by: <%= queue.adminName%></p>
+        <form class="" action="/queue/checkIn" method="post">
+          <button class="subBtn" type="submit" name="queueCode" value="<%= queue._id%>">Check-In</button>
+        </form>
+      <%}%>
+    </section>
+
+    <!--Local Scripts-->
+    <script type="text/javascript">
+      const queueCode = "<%= queue._id%>"
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/scripts/index.js"></script>
+    <script type="text/javascript" src="/scripts/dataUpdate.js"></script>
+  </body>
+</html>
