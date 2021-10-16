@@ -175,13 +175,17 @@ router.post("/checkIn", (req, res) => {
   const queueCode = req.body.queueCode;
 
   Queue.findOne({_id: queueCode}, (err, foundQueue) => {
-    if(foundQueue.joinedUsersID[0] == req.user._id){
-      foundQueue.joinedUsersID.shift();
-      foundQueue.joinedUsersName.shift();
-      foundQueue.save();
-      res.render("checkIn", {isLogedIn: req.isLogedIn, userName: req.user.name});
+    if(!foundQueue.paused){
+      if(foundQueue.joinedUsersID[0] == req.user._id){
+        foundQueue.joinedUsersID.shift();
+        foundQueue.joinedUsersName.shift();
+        foundQueue.save();
+        res.render("checkIn", {isLogedIn: req.isLogedIn, userName: req.user.name});
+      }else{
+        res.send("Its not your turn");
+      }
     }else{
-      res.send("Its not your turn");
+      res.send("The queue is currently paused by the admin");
     }
   });
 });
