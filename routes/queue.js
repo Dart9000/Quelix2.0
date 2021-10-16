@@ -70,6 +70,7 @@ router.post("/create", (req, res) => {
     adminID: req.user._id,
     adminName: req.user.name,
     title: req.body.queueName,
+    paused: false,
     maxLimit: req.body.maxLimit,
     joinedUsersID: []
   });
@@ -80,6 +81,20 @@ router.post("/create", (req, res) => {
     }else{
       res.redirect("/queue/created");
     }
+  });
+});
+router.post("/pause", (req, res) => {
+  const queueCode = req.body.queueCode;
+
+  Queue.findOne({_id: queueCode}, (err, foundQueue) => {
+    foundQueue.paused = !foundQueue.paused;
+    foundQueue.save((err) => {
+      if(err){
+        console.log(err);
+      }else{
+        res.redirect("/queue/indi/"+foundQueue._id);
+      }
+    });
   });
 });
 
@@ -94,23 +109,28 @@ router.get("/join/:queueCode", auth, (req, res) => {
 
     if(foundQueue.joinedUsersID.length !== foundQueue.maxLimit){
 
-      if(foundQueue.joinedUsersID.indexOf(req.user._id) == -1){
-        foundQueue.joinedUsersID.push(req.user._id);
-        foundQueue.save((err) => {
-          if(err){
-            console.log(err);
-          }else{
-            res.redirect("/queue/indi/"+foundQueue._id);
-          }
-        });
-      }else{
-        if(foundQueue.joinedUsersID[0] == req.user._id){
-          foundQueue.joinedUsersID.shift();
-          foundQueue.save();
-          res.render("checkIn", {isLogedIn: req.isLogedIn, userName: req.user.name});
+      if(!foundQueue.paused){
+        if(foundQueue.joinedUsersID.indexOf(req.user._id) == -1){
+          foundQueue.joinedUsersID.push(req.user._id);
+          foundQueue.save((err) => {
+            if(err){
+              console.log(err);
+            }else{
+              res.redirect("/queue/indi/"+foundQueue._id);
+            }
+          });
         }else{
-          res.send("Its not your turn");
+          if(foundQueue.joinedUsersID[0] == req.user._id){
+            foundQueue.joinedUsersID.shift();
+            foundQueue.save();
+            res.render("checkIn", {isLogedIn: req.isLogedIn, userName: req.user.name});
+          }else{
+            res.send("Its not your turn");
+          }
         }
+
+      }else{
+        res.send("The queue is currently paused by the admin");
       }
 
     }else{
@@ -126,17 +146,21 @@ router.post("/join", (req, res) => {
 
     if(foundQueue.joinedUsersID.length !== foundQueue.maxLimit){
 
-      if(foundQueue.joinedUsersID.indexOf(req.user._id) == -1){
-        foundQueue.joinedUsersID.push(req.user._id);
-        foundQueue.save((err) => {
-          if(err){
-            console.log(err);
-          }else{
-            res.redirect("/queue/indi/"+foundQueue._id)
-          }
-        });
+      if(!foundQueue.paused){
+        if(foundQueue.joinedUsersID.indexOf(req.user._id) == -1){
+          foundQueue.joinedUsersID.push(req.user._id);
+          foundQueue.save((err) => {
+            if(err){
+              console.log(err);
+            }else{
+              res.redirect("/queue/indi/"+foundQueue._id)
+            }
+          });
+        }else{
+          res.send("You are already in the queue");
+        }
       }else{
-        res.send("You are already in the queue");
+        res.send("The queue is currently paused by the admin");
       }
 
     }else{
