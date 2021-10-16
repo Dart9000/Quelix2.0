@@ -15,7 +15,8 @@ personList.on("click", (e) => {
 	$.ajax({
 		type: "Get",
 		url: goto,
-		success: function(){
+		success: function(data){
+			console.log(data.success);
 			getCurrData();
 		}
 	})

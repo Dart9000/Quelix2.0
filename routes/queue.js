@@ -214,15 +214,13 @@ router.get("/rmUser/:rmUserName/:queueCode", auth, (req, res) => {
   const userName = req.params.rmUserName;
   const queueCode = req.params.queueCode;
 
-  console.log(userName);
-
   Queue.findOne({_id: queueCode}, (err, foundQueue) => {
 
     let rmIndex = foundQueue.joinedUsersName.indexOf(userName);
     foundQueue.joinedUsersID.splice(rmIndex, 1);
     foundQueue.joinedUsersName.splice(rmIndex, 1);
     foundQueue.save();
-
+    res.send({success: true});
   });
 });
 

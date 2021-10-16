@@ -28,13 +28,13 @@ body {
 }
 
 .headMain {
-  color: #FF3821;
+  color: #F1AF1D;
 }
 
 .subBtn {
   border: none;
   outline: none;
-  background-color: #FF3821;
+  background-color: #F1AF1D;
   cursor: pointer;
   padding: 8px 15px;
   border-radius: 5px;
@@ -44,7 +44,7 @@ body {
 }
 
 .subBtn:hover {
-  color: #FF3821;
+  color: #F1AF1D;
   background: inherit;
   text-decoration: none;
 }
@@ -62,11 +62,11 @@ body {
 
 .creBtn {
   background-color: #fff;
-  color: #FF3821;
+  color: #F1AF1D;
   margin-right: 20px;
 }
 .creBtn:hover{
-  background-color: #FF3821;
+  background-color: #F1AF1D;
   color: #fff;
 }
 
@@ -86,8 +86,15 @@ body {
 }
 .rmBtn i{
   pointer-events: none;
-  color: #FF3821;
+  color: #F1AF1D;
   font-size: 1.1rem;
+}
+.indiQFCon{
+  display: flex;
+  margin-top: 25px;
+}
+.indiQDBtn{
+  margin-left: 10px;
 }
 
 @media screen and (max-width: 980px) {

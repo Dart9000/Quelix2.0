@@ -25,16 +25,18 @@
 
       <% if(isAdmin){%>
         <img src="<%= qrUrl%>" alt="">
-        <form class="" action="/queue/pause" method="post">
-        <% if(queue.paused){%>
-          <button class="subBtn" type="submit" name="queueCode" value="<%= queue._id%>">Resume Queue</button>
-        <%}else{%>
-          <button class="subBtn" type="submit" name="queueCode" value="<%= queue._id%>">Pause Queue</button>
-        <%}%>
-        </form>
-        <form class="" action="/queue/delete" method="post">
-          <button class="subBtn" type="submit" name="queueCode" value="<%= queue._id%>">Delete Queue</button>
-        </form>
+        <div class="indiQFCon">
+          <form class="" action="/queue/pause" method="post">
+            <% if(queue.paused){%>
+              <button class="subBtn creBtn" type="submit" name="queueCode" value="<%= queue._id%>">Resume Queue</button>
+            <%}else{%>
+              <button class="subBtn creBtn" type="submit" name="queueCode" value="<%= queue._id%>">Pause Queue</button>
+            <%}%>
+          </form>
+          <form class="" action="/queue/delete" method="post">
+            <button class="subBtn indiQDBtn" type="submit" name="queueCode" value="<%= queue._id%>">Delete Queue</button>
+          </form>
+        </div>
       <%}else{%>
         <p>Queue Created by: <%= queue.adminName%></p>
         <form class="" action="/queue/checkIn" method="post">
