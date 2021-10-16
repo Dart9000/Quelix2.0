@@ -32,7 +32,7 @@ router.get("/indi/:queueCode", auth, isLogedIn, (req, res) =>{
       qr.toDataURL(address, (err, src) => {
         if (err) res.send("Error occured");
         User.findOne({_id: foundQueue.joinedUsersID[0]}, (err, foundUser) => {
-          let nexTurn = 'No one has Joined the Queue';
+          let nexTurn = 'Empty Queue';
           if(foundUser){
             nexTurn = foundUser.name;
           }
@@ -205,7 +205,7 @@ router.get("/data/:queueCode", auth, (req, res) => {
   Queue.findOne({_id: queueCode}, (err, foundQueue) => {
     const userPos = foundQueue.joinedUsersID.indexOf(req.user._id)+1;
     User.findOne({_id: foundQueue.joinedUsersID[0]}, (err, foundUser) => {
-      let nexTurn = 'No one has Joined the Queue';
+      let nexTurn = 'Empty Queue';
       if(foundUser){
         nexTurn = foundUser.name;
       }

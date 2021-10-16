@@ -2,13 +2,16 @@ body {
   font-family: 'Work Sans', sans-serif;
   width: 100%;
   overflow-x: hidden;
+  color: #555;
 }
 
 .sec1 {
   padding: 15vh 4%;
   height: 80vh;
 }
-
+.secQue{
+  padding: 5vh 4%;
+}
 .row {
   height: 100%;
 }
@@ -76,6 +79,59 @@ body {
   width: 50%;
 }
 
+.queTitle{
+  text-align: center;
+  font-size: 3rem;
+  background: #F1AF1D;
+  color: #fff;
+  font-weight: bolder;
+  padding: 20px 0;
+  border-radius: 50px 50px 0 0;
+  margin-bottom: 0;
+}
+.belowTitle{
+  text-align: center;
+  background: #fff;
+  padding: 8px 0;
+  border-bottom: 1px solid #333;
+  border-left: 1px solid #333;
+  border-right: 1px solid #333;
+  margin-bottom: 0;
+}
+.belowTitle span, .DetailsFAd .left span, .DetailsFAd .left ol{
+  color: #F1AF1D;
+  font-weight: bolder;
+}
+
+.DetailsFAd{
+  display: flex;
+  justify-content: space-around;
+  border-left: 1px solid #333;
+  border-right: 1px solid #333;
+  padding: 5vh 0;
+}
+.DetailsFAd div{
+  flex: 1;
+  text-align: center;
+}
+.DetailsFAd .left{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.DetailsFAd .right img{
+  width: 45%;
+}
+.commDiv{
+  display: flex;
+  justify-content: space-around;
+  padding: 15px 15px 0;
+  border-radius: 0 0 50px 50px;
+  background: #F1AF1D;
+  color: #fff;
+  text-align: center;
+}
 .rmBtn{
   display: inline-block;
   border: 0;
@@ -91,10 +147,15 @@ body {
 }
 .indiQFCon{
   display: flex;
-  margin-top: 25px;
+  justify-content: center;
+  margin: 25px 0;
 }
 .indiQDBtn{
   margin-left: 10px;
+}
+.checkBtn{
+  margin: 25px 0;
+  text-align: center;
 }
 
 @media screen and (max-width: 980px) {
@@ -111,6 +172,18 @@ body {
   .ctaBtn{
     text-align: center;
   }
+  .queTitle{
+    font-size: 2rem;
+  }
+  .DetailsFAd{
+    flex-direction: column-reverse;
+  }
+  .DetailsFAd .right img{
+    width: 50%;
+  }
+  .commDiv{
+    font-size: 0.9rem;
+  }
 }
 
 @media screen and (max-width: 390px) {
@@ -122,5 +195,12 @@ body {
   }
   .queueForm{
     width: 100%;
+  }
+  .belowTitle{
+    font-size: 0.9rem;
+  }
+  .commDiv{
+    font-size: 0.8rem;
+    flex-direction: column;
   }
 }

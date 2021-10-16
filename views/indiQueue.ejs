@@ -1,30 +1,39 @@
 <%- include("header") -%>
 
-    <section class="sec1">
-      <h2><%= queue.title%></h2>
-      <p>Nunmber of persons in the queue currently: <span id="remInQue"><%= queue.joinedUsersID.length%></span></p>
+    <section class="secQue">
+      <h2 class="queTitle"><%= queue.title%></h2>
       <% if(!isAdmin){%>
-        <p>Your position in the queue: <span id="userPos"><%= userPos%></span></p>
+        <p class="belowTitle">Your position in the queue: <span id="userPos"><%= userPos%></span></p>
       <%}else{%>
-        <p>Queue Code: <%= queue._id%></p>
+        <p class="belowTitle">Queue Code: <span><%= queue._id%></span></p>
 
-        <p>People in the Queue:
-          <ol id="personList">
-            <%for(person of queue.joinedUsersName){%>
-              <li>
-                <%=person%> <abbr title="Remove User from Queue"><button class="rmBtn" id="<%= person%>"><i class="fas fa-times"></i></button></abbr>
-              </li>
-            <%}%>
-          </ol>
-        </p>
-
-        <p>Next Turn: <span id="nexTurn"><%= nexTurn%></span></p>
+        <div class="DetailsFAd">
+          <div class="left">
+            <p>Next Turn: <span id="nexTurn"><%= nexTurn%></span></p>
+            <p>People in the Queue:
+              <ol id="personList">
+                <%for(person of queue.joinedUsersName){%>
+                  <li>
+                    <%=person%> <abbr title="Remove User from Queue"><button class="rmBtn" id="<%= person%>"><i class="fas fa-times"></i></button></abbr>
+                  </li>
+                <%}%>
+              </ol>
+            </p>
+          </div>
+          <div class="right">
+            <img src="<%= qrUrl%>" alt="">
+          </div>
+        </div>
       <%}%>
-      <p>Max number of person who can join: <%= queue.maxLimit%></p>
+
+      <div class="commDiv">
+        <p>Nunmber of persons in the queue currently: <span id="remInQue"><%= queue.joinedUsersID.length%></span></p>
+
+        <p>Max number of person who can join: <%= queue.maxLimit%></p>
+      </div>
 
 
       <% if(isAdmin){%>
-        <img src="<%= qrUrl%>" alt="">
         <div class="indiQFCon">
           <form class="" action="/queue/pause" method="post">
             <% if(queue.paused){%>
@@ -38,8 +47,7 @@
           </form>
         </div>
       <%}else{%>
-        <p>Queue Created by: <%= queue.adminName%></p>
-        <form class="" action="/queue/checkIn" method="post">
+        <form class="checkBtn" action="/queue/checkIn" method="post">
           <button class="subBtn" type="submit" name="queueCode" value="<%= queue._id%>">Check-In</button>
         </form>
       <%}%>
