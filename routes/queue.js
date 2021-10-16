@@ -146,17 +146,21 @@ router.post("/join", (req, res) => {
 
     if(foundQueue.joinedUsersID.length !== foundQueue.maxLimit){
 
-      if(foundQueue.joinedUsersID.indexOf(req.user._id) == -1){
-        foundQueue.joinedUsersID.push(req.user._id);
-        foundQueue.save((err) => {
-          if(err){
-            console.log(err);
-          }else{
-            res.redirect("/queue/indi/"+foundQueue._id)
-          }
-        });
+      if(!foundQueue.paused){
+        if(foundQueue.joinedUsersID.indexOf(req.user._id) == -1){
+          foundQueue.joinedUsersID.push(req.user._id);
+          foundQueue.save((err) => {
+            if(err){
+              console.log(err);
+            }else{
+              res.redirect("/queue/indi/"+foundQueue._id)
+            }
+          });
+        }else{
+          res.send("You are already in the queue");
+        }
       }else{
-        res.send("You are already in the queue");
+        res.send("The queue is currently paused by the admin");
       }
 
     }else{
