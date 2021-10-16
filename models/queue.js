@@ -7,6 +7,7 @@ const queueSchema = new mongoose.Schema({
   paused: Boolean,
   maxLimit: Number,
   joinedUsersID: [String],
+  joinedUsersName: [String]
 });
 
 module.exports = mongoose.model("Queue", queueSchema);

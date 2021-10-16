@@ -76,6 +76,20 @@ body {
   width: 50%;
 }
 
+.rmBtn{
+  display: inline-block;
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: 0;
+  margin-left: 20px;
+}
+.rmBtn i{
+  pointer-events: none;
+  color: #FF3821;
+  font-size: 1.1rem;
+}
+
 @media screen and (max-width: 980px) {
   .queueForm{
     width: 80%;

@@ -112,6 +112,7 @@ router.get("/join/:queueCode", auth, (req, res) => {
       if(!foundQueue.paused){
         if(foundQueue.joinedUsersID.indexOf(req.user._id) == -1){
           foundQueue.joinedUsersID.push(req.user._id);
+          foundQueue.joinedUsersName.push(req.user.name);
           foundQueue.save((err) => {
             if(err){
               console.log(err);
@@ -149,6 +150,7 @@ router.post("/join", (req, res) => {
       if(!foundQueue.paused){
         if(foundQueue.joinedUsersID.indexOf(req.user._id) == -1){
           foundQueue.joinedUsersID.push(req.user._id);
+          foundQueue.joinedUsersName.push(req.user.name);
           foundQueue.save((err) => {
             if(err){
               console.log(err);
@@ -175,6 +177,7 @@ router.post("/checkIn", (req, res) => {
   Queue.findOne({_id: queueCode}, (err, foundQueue) => {
     if(foundQueue.joinedUsersID[0] == req.user._id){
       foundQueue.joinedUsersID.shift();
+      foundQueue.joinedUsersName.shift();
       foundQueue.save();
       res.render("checkIn", {isLogedIn: req.isLogedIn, userName: req.user.name});
     }else{
@@ -202,8 +205,24 @@ router.get("/data/:queueCode", auth, (req, res) => {
       if(foundUser){
         nexTurn = foundUser.name;
       }
-      res.json({queueLength: foundQueue.joinedUsersID.length, nexTurn: nexTurn, userPos: userPos});
+      res.json({joinedUsersName: foundQueue.joinedUsersName, queueLength: foundQueue.joinedUsersID.length, nexTurn: nexTurn, userPos: userPos});
     });
+  });
+});
+
+router.get("/rmUser/:rmUserName/:queueCode", auth, (req, res) => {
+  const userName = req.params.rmUserName;
+  const queueCode = req.params.queueCode;
+
+  console.log(userName);
+
+  Queue.findOne({_id: queueCode}, (err, foundQueue) => {
+
+    let rmIndex = foundQueue.joinedUsersName.indexOf(userName);
+    foundQueue.joinedUsersID.splice(rmIndex, 1);
+    foundQueue.joinedUsersName.splice(rmIndex, 1);
+    foundQueue.save();
+
   });
 });
 

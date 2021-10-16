@@ -7,6 +7,17 @@
         <p>Your position in the queue: <span id="userPos"><%= userPos%></span></p>
       <%}else{%>
         <p>Queue Code: <%= queue._id%></p>
+
+        <p>People in the Queue:
+          <ol id="personList">
+            <%for(person of queue.joinedUsersName){%>
+              <li>
+                <%=person%> <abbr title="Remove User from Queue"><button class="rmBtn" id="<%= person%>"><i class="fas fa-times"></i></button></abbr>
+              </li>
+            <%}%>
+          </ol>
+        </p>
+
         <p>Next Turn: <span id="nexTurn"><%= nexTurn%></span></p>
       <%}%>
       <p>Max number of person who can join: <%= queue.maxLimit%></p>
