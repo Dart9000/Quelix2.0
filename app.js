@@ -30,8 +30,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true});
-mongoose.set("useCreateIndex", true);
-
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 
 // Using Routes
 app.use("/", indexRouter);
