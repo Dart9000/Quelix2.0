@@ -30,7 +30,7 @@ while(quelix.on):
 >>> True
 ```
 
-[Github repo](https://github.com/Dart9000/Quelix)
+[Github repo](https://github.com/Dart9000/Quelix2.0)
 
 [OTP-API-repo](https://github.com/Dart9000/OTP-flask-API)
 
